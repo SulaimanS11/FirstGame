@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import sys
+import time
 
 
 pygame.init()
@@ -21,14 +22,18 @@ def wilfird_movement():
             bob = 0
 
 
-def wayly_movement():
+def wayly_animation():
     global wayly1Rect, rob
     if index % 15 == 0:
         if rob == 0:
             rob = 3
         rob -= 1
     
-
+def scoring():
+    global score, index
+    if index % 60 == 0:
+        score += 1
+        print(score)
 
 # WINDOW & DISPLAY SETTINGS
 SCREEN_HEIGHT = 384
@@ -45,6 +50,8 @@ index = 0
 
 
 # CHARACTERS
+
+### WILFRID
 wilfrid_walk2 = pygame.image.load(
     r"P\pygame\hackathon1\Pixel_Art\character\sandbox_walk.png"
 )
@@ -59,6 +66,7 @@ vertical_speed = 0
 bobby = wilfridRect.y
 red = 0
 
+### WAYLY
 wayly_still = pygame.image.load(
     r"P\pygame\hackathon1\Pixel_Art\enemies\enemyuno\gorlrun.png"
 ).convert_alpha()
@@ -71,6 +79,8 @@ wayly_run2 = pygame.image.load(
 wayly = [wayly_still, wayly_run1, wayly_run2, wayly_still]
 wayly1Rect = wayly_still.get_rect(bottomleft=(1300, 375))
 rob = 0
+wayly_horspeed = -4
+wayly_vertspeed = 0
 
 # LANDSCAPE
 background1 = pygame.image.load(
@@ -81,6 +91,13 @@ background1rect = background1.get_rect(topleft=(0, 0))
 # EXTRA
 clock = pygame.time.Clock()
 
+# SCORE
+score = 0
+
+def waylyAttack():
+    global wayly_speed, wayly_horspeed, wayly1Rect, score
+    if score == -4:
+        None
 
 # GAME LOOP
 while True:
@@ -109,7 +126,8 @@ while True:
             if event.key == pygame.K_w:
                 vertical_speed += 10
 
-
+    # SCORE
+    scoring()
 
     # STATIC BLITS
 
@@ -124,7 +142,9 @@ while True:
     windowSurface.blit(wayly[rob], wayly1Rect)
 
     ### WAYLY MOVEMENT
-    wayly1Rect.x -= 4
+
+    wayly1Rect.x += wayly_horspeed
+    wayly1Rect.y += wayly_vertspeed
     if wayly1Rect.left < -20:
         wayly1Rect.bottomleft = (1300, 375)
 
@@ -144,11 +164,12 @@ while True:
     if wilfridRect.top <= 0:
         wilfridRect.top = 0
 
-    ### BORDERS
-    if wilfridRect.left <= 0 :
-        wilfridRect.left = 0
-    if wilfridRect.right >= SCREEN_LENGTH:
-        wilfridRect.right = SCREEN_LENGTH
+    ### SCREEN WRAPPING
+    if wilfridRect.right <= 0:
+        wilfridRect.left = SCREEN_LENGTH
+
+    elif wilfridRect.left >= SCREEN_LENGTH:
+        wilfridRect.right = 0
     
     ### GRAVITY
     if vertical_speed == 0:
@@ -160,8 +181,8 @@ while True:
     ### main char movement code
     index_indexer()
     wilfird_movement()
-    wayly_movement()
-    # player_walk_animation()
+    wayly_animation()
+
 
     # NECESSITIES
     clock.tick(60)
