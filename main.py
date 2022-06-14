@@ -81,6 +81,51 @@ wayly1Rect = wayly_still.get_rect(bottomleft=(1300, 375))
 rob = 0
 wayly_horspeed = -4
 wayly_vertspeed = 0
+wayDir = ['left', 'right', 'up','down','downleft','downright','upleft','upright']
+
+
+# BOUNCING
+
+# if wayDir == 'downleft':
+#     wayly1Rect.left -= wayly_vertspeed
+#     wayly1Rect.top += wayly_vertspeed
+# if wayDir == 'downright':
+#     wayly1Rect.left += wayly_vertspeed
+#     wayly1Rect.top += wayly_vertspeed
+# if wayDir == 'upleft':
+#     wayly1Rect.left -= wayly_vertspeed
+#     wayly1Rect.top -= wayly_vertspeed
+# if wayDir == 'upright':
+#     wayly1Rect.left += wayly_vertspeed
+#     wayly1Rect.top -= wayly_vertspeed
+
+
+# if wayly1Rect.bottom == windowRect.bottom:
+#     if wayDir == 'downleft':
+#         wayDir = 'upleft'
+#     if wayDir == 'downright':
+#         wayDir = 'upright'
+
+# if wayly1Rect.left == windowRect.left:
+#     if wayDir == 'upleft':
+#         wayDir = 'upright'
+#     if wayDir == 'downleft':
+#         wayDir = 'downright'
+
+# if wayly1Rect.top == windowRect.top:
+#     if wayDir == 'upleft':
+#         wayDir = 'downleft'
+#     if wayDir == 'upright':
+#         wayDir = 'downright'
+
+# if wayly1Rect.right == windowRect.right:
+#     if wayDir == 'downright':
+#         wayDir = 'downleft'
+#     if wayDir == 'upright':
+#         wayDir = 'upleft'
+
+
+
 
 # LANDSCAPE
 background1 = pygame.image.load(
@@ -142,11 +187,18 @@ while True:
     windowSurface.blit(wayly[rob], wayly1Rect)
 
     ### WAYLY MOVEMENT
+    if score == 7:
+        wayly1Rect.bottomleft = (1300, 375)
+        wayly_horspeed = -5
+
+    if score == 12:
+        wayly1Rect.bottomleft = (0, 0)
+        wayly_horspeed = 0
+        wayly_vertspeed = 10
+
 
     wayly1Rect.x += wayly_horspeed
     wayly1Rect.y += wayly_vertspeed
-    if wayly1Rect.left < -20:
-        wayly1Rect.bottomleft = (1300, 375)
 
     ### WILFRID MOVEMENT
     wilfridRect.x += horizontal_speed
