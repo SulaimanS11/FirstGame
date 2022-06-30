@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import sys
+import time
 
 
 pygame.init()
@@ -21,7 +22,7 @@ def wilfird_movement():
             bob = 0
 
 
-def wayly_movement():
+def wayly_animation():
     global wayly1Rect, rob
     if index % 15 == 0:
         if rob == 0:
@@ -29,13 +30,11 @@ def wayly_movement():
         rob -= 1
 
 
-# def player_walk_animation():
-#     global wilfridRect, SCREEN_LENGTH
-
-#     if wilfridRect.x >= SCREEN_LENGTH:
-#         wilfridRect.x = SCREEN_LENGTH
-#     if wilfridRect.x <= 0:
-#         wilfridRect.x = 0
+def scoring():
+    global score, index
+    if index % 60 == 0:
+        score += 1
+        print(score)
 
 
 # WINDOW & DISPLAY SETTINGS
@@ -52,6 +51,22 @@ pygame.display.set_caption("Travel to Monaco")
 index = 0
 
 
+# CHARACTERS
+
+### WILFRID
+wilfrid_walk2 = pygame.image.load(
+    r"P\pygame\hackathon1\Pixel_Art\character\sandbox_walk.png"
+)
+wilfrid_walk1 = pygame.image.load(
+    r"P\pygame\hackathon1\Pixel_Art\character\sandbox_result_i.png"
+)
+wilfrid_walks = [wilfrid_walk1, wilfrid_walk2]
+wilfridRect = wilfrid_walk1.get_rect(bottomleft=(0, 375))
+bob = 0
+horizontal_speed = 0
+vertical_speed = 0
+bobby = wilfridRect.y
+red = 0
 # CHARACTERS
 wilfrid_walk2 = pygame.image.load(
     r"P\hackathons\1sthackathon\Pixel_Art\character\sandbox_walk.png"
@@ -79,7 +94,7 @@ wayly1Rect = wayly_still.get_rect(bottomleft=(1300, 384))
 rob = 0
 wayly_horspeed = -4
 wayly_vertspeed = 0
-wayDir = ['left', 'right', 'up','down','downleft','downright','upleft','upright']
+wayDir = ["left", "right", "up", "down", "downleft", "downright", "upleft", "upright"]
 
 
 # BOUNCING
@@ -121,8 +136,6 @@ wayDir = ['left', 'right', 'up','down','downleft','downright','upleft','upright'
 #         wayDir = 'downleft'
 #     if wayDir == 'upright':
 #         wayDir = 'upleft'
-
-
 
 
 # LANDSCAPE
@@ -173,7 +186,6 @@ while True:
         wayly1Rect.bottomleft = (0, 0)
         wayly_horspeed = 0
         wayly_vertspeed = 10
-
 
     wayly1Rect.x += wayly_horspeed
     wayly1Rect.y += wayly_vertspeed
