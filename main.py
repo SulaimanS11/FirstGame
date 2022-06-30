@@ -1,7 +1,6 @@
 import pygame
 from pygame.locals import *
 import sys
-import time
 
 
 pygame.init()
@@ -22,7 +21,7 @@ def wilfird_movement():
             bob = 0
 
 
-def wayly_animation():
+def wayly_movement():
     global wayly1Rect, rob
     if index % 15 == 0:
         if rob == 0:
@@ -30,11 +29,13 @@ def wayly_animation():
         rob -= 1
 
 
-def scoring():
-    global score, index
-    if index % 60 == 0:
-        score += 1
-        print(score)
+# def player_walk_animation():
+#     global wilfridRect, SCREEN_LENGTH
+
+#     if wilfridRect.x >= SCREEN_LENGTH:
+#         wilfridRect.x = SCREEN_LENGTH
+#     if wilfridRect.x <= 0:
+#         wilfridRect.x = 0
 
 
 # WINDOW & DISPLAY SETTINGS
@@ -51,22 +52,6 @@ pygame.display.set_caption("Travel to Monaco")
 index = 0
 
 
-# CHARACTERS
-
-### WILFRID
-wilfrid_walk2 = pygame.image.load(
-    r"P\pygame\hackathon1\Pixel_Art\character\sandbox_walk.png"
-)
-wilfrid_walk1 = pygame.image.load(
-    r"P\pygame\hackathon1\Pixel_Art\character\sandbox_result_i.png"
-)
-wilfrid_walks = [wilfrid_walk1, wilfrid_walk2]
-wilfridRect = wilfrid_walk1.get_rect(bottomleft=(0, 375))
-bob = 0
-horizontal_speed = 0
-vertical_speed = 0
-bobby = wilfridRect.y
-red = 0
 # CHARACTERS
 wilfrid_walk2 = pygame.image.load(
     r"P\hackathons\1sthackathon\Pixel_Art\character\sandbox_walk.png"
@@ -92,51 +77,6 @@ wayly_run2 = pygame.image.load(
 wayly = [wayly_still, wayly_run1, wayly_run2, wayly_still]
 wayly1Rect = wayly_still.get_rect(bottomleft=(1300, 384))
 rob = 0
-wayly_horspeed = -4
-wayly_vertspeed = 0
-wayDir = ["left", "right", "up", "down", "downleft", "downright", "upleft", "upright"]
-
-
-# BOUNCING
-
-# if wayDir == 'downleft':
-#     wayly1Rect.left -= wayly_vertspeed
-#     wayly1Rect.top += wayly_vertspeed
-# if wayDir == 'downright':
-#     wayly1Rect.left += wayly_vertspeed
-#     wayly1Rect.top += wayly_vertspeed
-# if wayDir == 'upleft':
-#     wayly1Rect.left -= wayly_vertspeed
-#     wayly1Rect.top -= wayly_vertspeed
-# if wayDir == 'upright':
-#     wayly1Rect.left += wayly_vertspeed
-#     wayly1Rect.top -= wayly_vertspeed
-
-
-# if wayly1Rect.bottom == windowRect.bottom:
-#     if wayDir == 'downleft':
-#         wayDir = 'upleft'
-#     if wayDir == 'downright':
-#         wayDir = 'upright'
-
-# if wayly1Rect.left == windowRect.left:
-#     if wayDir == 'upleft':
-#         wayDir = 'upright'
-#     if wayDir == 'downleft':
-#         wayDir = 'downright'
-
-# if wayly1Rect.top == windowRect.top:
-#     if wayDir == 'upleft':
-#         wayDir = 'downleft'
-#     if wayDir == 'upright':
-#         wayDir = 'downright'
-
-# if wayly1Rect.right == windowRect.right:
-#     if wayDir == 'downright':
-#         wayDir = 'downleft'
-#     if wayDir == 'upright':
-#         wayDir = 'upleft'
-
 
 # LANDSCAPE
 background1 = pygame.image.load(
@@ -178,17 +118,7 @@ while True:
     windowSurface.blit(wayly[rob], wayly1Rect)
 
     ### WAYLY MOVEMENT
-    if score == 7:
-        wayly1Rect.bottomleft = (1300, 375)
-        wayly_horspeed = -5
-
-    if score == 12:
-        wayly1Rect.bottomleft = (0, 0)
-        wayly_horspeed = 0
-        wayly_vertspeed = 10
-
-    wayly1Rect.x += wayly_horspeed
-    wayly1Rect.y += wayly_vertspeed
+    wayly1Rect.x -= 4
 
     ### WILFRID MOVEMENT
     wilfridRect.x += player_speed
