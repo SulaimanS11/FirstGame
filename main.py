@@ -1,3 +1,4 @@
+from turtle import left
 import pygame
 from pygame.locals import *
 import sys
@@ -29,6 +30,42 @@ def wayly_animation():
             rob = 3
         rob -= 1
     
+def wayly_bounce():
+    if wayDir == 'downleft':
+        wayly1Rect.x -= wayly_vertspeed
+        wayly1Rect.y += wayly_vertspeed
+    if wayDir == 'downright':
+        wayly1Rect.x += wayly_vertspeed
+        wayly1Rect.y += wayly_vertspeed
+    if wayDir == 'upleft':
+        wayly1Rect.x -= wayly_vertspeed
+        wayly1Rect.y -= wayly_vertspeed
+    if wayDir == 'upright':
+        wayly1Rect.x += wayly_vertspeed
+        wayly1Rect.y -= wayly_vertspeed
+    if wayDir == "left":
+        wayly1Rect.x -= wayly_horspeed
+    if wayDir == "right":
+        wayly1Rect.x += wayly_horspeed
+
+    if wayly1Rect.bottom == windowRect.bottom:
+        if wayDir == 'downleft':
+            wayDir = 'upleft'
+        if wayDir == 'downright':
+            wayDir = 'upright'
+
+    if wayly1Rect.left == windowRect.left:
+        pass
+
+    if wayly1Rect.top == windowRect.top:
+        if wayDir == 'upleft':
+            wayDir = 'downleft'
+        if wayDir == 'upright':
+            wayDir = 'downright'
+
+    if wayly1Rect.right == windowRect.right:
+        pass
+
 def scoring():
     global score, index
     if index % 60 == 0:
@@ -79,50 +116,14 @@ wayly_run2 = pygame.image.load(
 wayly = [wayly_still, wayly_run1, wayly_run2, wayly_still]
 wayly1Rect = wayly_still.get_rect(bottomleft=(1300, 375))
 rob = 0
-wayly_horspeed = -4
+wayly_horspeed = 4
 wayly_vertspeed = 0
-wayDir = ['left', 'right', 'up','down','downleft','downright','upleft','upright']
-
+DIRECTIONS = {'left' : "left", 'right':'right','downleft':'downleft','downright':'downright','upleft':'upleft','upright':'upright'}
+wayDir = "left"
 
 # BOUNCING
 
-# if wayDir == 'downleft':
-#     wayly1Rect.left -= wayly_vertspeed
-#     wayly1Rect.top += wayly_vertspeed
-# if wayDir == 'downright':
-#     wayly1Rect.left += wayly_vertspeed
-#     wayly1Rect.top += wayly_vertspeed
-# if wayDir == 'upleft':
-#     wayly1Rect.left -= wayly_vertspeed
-#     wayly1Rect.top -= wayly_vertspeed
-# if wayDir == 'upright':
-#     wayly1Rect.left += wayly_vertspeed
-#     wayly1Rect.top -= wayly_vertspeed
 
-
-# if wayly1Rect.bottom == windowRect.bottom:
-#     if wayDir == 'downleft':
-#         wayDir = 'upleft'
-#     if wayDir == 'downright':
-#         wayDir = 'upright'
-
-# if wayly1Rect.left == windowRect.left:
-#     if wayDir == 'upleft':
-#         wayDir = 'upright'
-#     if wayDir == 'downleft':
-#         wayDir = 'downright'
-
-# if wayly1Rect.top == windowRect.top:
-#     if wayDir == 'upleft':
-#         wayDir = 'downleft'
-#     if wayDir == 'upright':
-#         wayDir = 'downright'
-
-# if wayly1Rect.right == windowRect.right:
-#     if wayDir == 'downright':
-#         wayDir = 'downleft'
-#     if wayDir == 'upright':
-#         wayDir = 'upleft'
 
 
 
@@ -170,6 +171,12 @@ while True:
                 horizontal_speed += 5
             if event.key == pygame.K_w:
                 vertical_speed += 10
+        
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            vertical_speed -= 20
+        
+        if event.type == pygame.MOUSEBUTTONUP:
+            vertical_speed += 20
 
     # SCORE
     scoring()
@@ -187,18 +194,18 @@ while True:
     windowSurface.blit(wayly[rob], wayly1Rect)
 
     ### WAYLY MOVEMENT
+
     if score == 7:
         wayly1Rect.bottomleft = (1300, 375)
-        wayly_horspeed = -5
+        wayly_horspeed = 5
+        wayDir = "left"
 
     if score == 12:
-        wayly1Rect.bottomleft = (0, 0)
-        wayly_horspeed = 0
+        wayly1Rect.bottomleft = (-100, 0)
+        wayly_horspeed = 5
         wayly_vertspeed = 10
+        wayDir ="downright"
 
-
-    wayly1Rect.x += wayly_horspeed
-    wayly1Rect.y += wayly_vertspeed
 
     ### WILFRID MOVEMENT
     wilfridRect.x += horizontal_speed
