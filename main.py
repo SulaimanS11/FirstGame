@@ -30,10 +30,10 @@ Wayly_c = characters.Wayly()
 ### WILFRID
 charStarting_pos = (0, 375)
 wilfrid_walk2 = pygame.image.load(
-    r"P\pygame\hackathon1\Pixel_Art\character\sandbox_walk.png"
+    r"C:\Users\mirsu\Desktop\Code\P\pygame\FirstGame\Pixel_Art\character\sandbox_walk.png"
 )
 wilfrid_walk1 = pygame.image.load(
-    r"P\pygame\hackathon1\Pixel_Art\character\sandbox_result_i.png"
+    r"C:\Users\mirsu\Desktop\Code\P\pygame\FirstGame\Pixel_Art\character\sandbox_result_i.png"
 )
 wilfrid_walks = [wilfrid_walk1, wilfrid_walk2]
 wilfridRect = wilfrid_walk1.get_rect(bottomleft=charStarting_pos)
@@ -46,13 +46,13 @@ red = 0
 ### WAYLY
 
 wayly_still = pygame.image.load(
-    r"P\pygame\hackathon1\Pixel_Art\enemies\enemyuno\gorlrun.png"
+    r"C:\Users\mirsu\Desktop\Code\P\pygame\FirstGame\Pixel_Art\enemies\enemyuno\gorlrun.png"
 ).convert_alpha()
 wayly_run1 = pygame.image.load(
-    r"P\pygame\hackathon1\Pixel_Art\enemies\enemyuno\gorlrun2.png"
+    r"C:\Users\mirsu\Desktop\Code\P\pygame\FirstGame\Pixel_Art\enemies\enemyuno\gorlrun2.png"
 ).convert_alpha()
 wayly_run2 = pygame.image.load(
-    r"P\pygame\hackathon1\Pixel_Art\enemies\enemyuno\gorlrun3.png"
+    r"C:\Users\mirsu\Desktop\Code\P\pygame\FirstGame\Pixel_Art\enemies\enemyuno\gorlrun3.png"
 ).convert_alpha()
 wayly = [wayly_still, wayly_run1, wayly_run2, wayly_still]
 waylyHeight = wayly_still.get_size()[0]
@@ -78,7 +78,7 @@ wayDir = "left"
 
 # LANDSCAPE
 background1 = pygame.image.load(
-    r"P\pygame\hackathon1\Pixel_Art\scene4\bobsandvegen.jpg"
+    r"C:\Users\mirsu\Desktop\Code\P\pygame\FirstGame\Pixel_Art\scene4\back1.jpg"
 )
 background1rect = background1.get_rect(topleft=(0, 0))
 
